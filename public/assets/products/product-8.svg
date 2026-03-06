@@ -1,0 +1,13 @@
+<svg width="160" height="160" viewBox="0 0 160 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="160" height="160" rx="32" fill="#F8FAFC"/>
+  <rect x="20" y="20" width="120" height="120" rx="28" fill="url(#card)"/>
+  <rect x="42" y="44" width="76" height="72" rx="20" fill="#FFF7ED"/>
+  <circle cx="80" cy="78" r="24" fill="#FDBA74"/>
+  <rect x="46" y="122" width="68" height="10" rx="5" fill="#94A3B8" opacity="0.35"/>
+  <defs>
+    <linearGradient id="card" x1="20" y1="20" x2="140" y2="140" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E2E8F0"/>
+    </linearGradient>
+  </defs>
+</svg>

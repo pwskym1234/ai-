@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Sparkles } from "lucide-react";
 import { toast } from "sonner";
 
@@ -15,8 +15,8 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Textarea } from "@/components/ui/textarea";
+import { GOAL_LIBRARY } from "@/lib/content";
 import { getProfile, setProfile } from "@/lib/storage";
-import { GOAL_OPTIONS } from "@/lib/utils";
 
 interface AiAdjustDialogProps {
   compact?: boolean;
@@ -25,10 +25,11 @@ interface AiAdjustDialogProps {
 export default function AiAdjustDialog({ compact }: AiAdjustDialogProps) {
   const [open, setOpen] = useState(false);
   const [message, setMessage] = useState("");
+  const goalLabels = useMemo(() => GOAL_LIBRARY.map((item) => item.id), []);
 
   const onApply = () => {
     const profile = getProfile();
-    const matchedGoal = GOAL_OPTIONS.find((goal) => message.includes(goal));
+    const matchedGoal = goalLabels.find((goal) => message.includes(goal));
 
     if (matchedGoal) {
       setProfile({

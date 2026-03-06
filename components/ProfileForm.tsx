@@ -15,8 +15,8 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
+import { getGoalSections, difficultyLabel } from "@/lib/content";
 import { Difficulty, UserProfile } from "@/lib/types";
-import { GOAL_OPTIONS } from "@/lib/utils";
 
 interface ProfileFormProps {
   value: UserProfile;
@@ -31,6 +31,7 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
   const [dislikeInput, setDislikeInput] = useState("");
 
   const timeMarks = [10, 20, 30, 45, 60];
+  const goalOptions = useMemo(() => getGoalSections(profile.targetTypes).flatMap((section) => section.goals), [profile.targetTypes]);
 
   const nearestCookingTime = useMemo(() => {
     return timeMarks.reduce((prev, current) =>
@@ -41,21 +42,13 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
   const toggleGoal = (goal: string) => {
     const exists = profile.goals.includes(goal);
     const nextGoals = exists ? profile.goals.filter((item) => item !== goal) : [...profile.goals, goal];
-    const nextPrimary = nextGoals.includes(profile.primaryGoal) ? profile.primaryGoal : nextGoals[0] ?? "혈당";
+    const nextPrimary = nextGoals.includes(profile.primaryGoal) ? profile.primaryGoal : nextGoals[0] ?? goal;
 
     setProfile({
       ...profile,
       goals: nextGoals,
       primaryGoal: nextPrimary,
     });
-  };
-
-  const save = () => {
-    onSave(profile);
-  };
-
-  const regenerate = () => {
-    onRegenerate(profile);
   };
 
   return (
@@ -97,23 +90,20 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
       <section className="rounded-lg border p-4">
         <h3 className="mb-3 text-base font-semibold">건강 관심</h3>
         <div className="mb-3 flex flex-wrap gap-2">
-          {GOAL_OPTIONS.map((goal) => (
+          {goalOptions.map((goal) => (
             <button
-              key={goal}
-              onClick={() => toggleGoal(goal)}
+              key={goal.id}
+              onClick={() => toggleGoal(goal.id)}
               className={`rounded-full border px-3 py-1 text-sm ${
-                profile.goals.includes(goal) ? "border-primary bg-primary/10 text-primary" : ""
+                profile.goals.includes(goal.id) ? "border-primary bg-primary/10 text-primary" : ""
               }`}
             >
-              {goal}
+              {goal.label}
             </button>
           ))}
         </div>
         <Label className="mb-2 block">대표 목표</Label>
-        <Select
-          value={profile.primaryGoal}
-          onValueChange={(value) => setProfile((prev) => ({ ...prev, primaryGoal: value }))}
-        >
+        <Select value={profile.primaryGoal} onValueChange={(value) => setProfile((prev) => ({ ...prev, primaryGoal: value }))}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -158,11 +148,7 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
 
         <div className="space-y-2">
           <div className="flex gap-2">
-            <Input
-              value={allergyInput}
-              onChange={(event) => setAllergyInput(event.target.value)}
-              placeholder="알레르기 입력"
-            />
+            <Input value={allergyInput} onChange={(event) => setAllergyInput(event.target.value)} placeholder="알레르기 입력" />
             <Button
               variant="secondary"
               onClick={() => {
@@ -246,19 +232,15 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
         />
         <div className="mt-3">
           <Label className="mb-2 block">난이도</Label>
-          <ToggleGroup
-            type="single"
-            value={profile.difficulty}
-            onValueChange={(value: Difficulty) => value && setProfile((prev) => ({ ...prev, difficulty: value }))}
-          >
+          <ToggleGroup type="single" value={profile.difficulty} onValueChange={(value: Difficulty) => value && setProfile((prev) => ({ ...prev, difficulty: value }))}>
             <ToggleGroupItem value="easy" variant="outline">
-              easy
+              {difficultyLabel("easy")}
             </ToggleGroupItem>
             <ToggleGroupItem value="medium" variant="outline">
-              medium
+              {difficultyLabel("medium")}
             </ToggleGroupItem>
             <ToggleGroupItem value="hard" variant="outline">
-              hard
+              {difficultyLabel("hard")}
             </ToggleGroupItem>
           </ToggleGroup>
         </div>
@@ -270,30 +252,15 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
         <ToggleGroup
           type="single"
           value={String(profile.shoppingWindowDays)}
-          onValueChange={(value) =>
-            value &&
-            setProfile((prev) => ({
-              ...prev,
-              shoppingWindowDays: Number(value) as 3 | 7 | 14,
-            }))
-          }
+          onValueChange={(value) => value && setProfile((prev) => ({ ...prev, shoppingWindowDays: Number(value) as 3 | 7 | 14 }))}
         >
-          <ToggleGroupItem value="3" variant="outline">
-            3일
-          </ToggleGroupItem>
-          <ToggleGroupItem value="7" variant="outline">
-            7일
-          </ToggleGroupItem>
-          <ToggleGroupItem value="14" variant="outline">
-            14일
-          </ToggleGroupItem>
+          <ToggleGroupItem value="3" variant="outline">3일</ToggleGroupItem>
+          <ToggleGroupItem value="7" variant="outline">7일</ToggleGroupItem>
+          <ToggleGroupItem value="14" variant="outline">14일</ToggleGroupItem>
         </ToggleGroup>
 
         <Label className="mb-2 mt-4 block">스토어</Label>
-        <Select
-          value={profile.storeProvider}
-          onValueChange={(value: "oasis" | "coupang") => setProfile((prev) => ({ ...prev, storeProvider: value }))}
-        >
+        <Select value={profile.storeProvider} onValueChange={(value: "oasis" | "coupang") => setProfile((prev) => ({ ...prev, storeProvider: value }))}>
           <SelectTrigger>
             <SelectValue />
           </SelectTrigger>
@@ -314,13 +281,9 @@ export default function ProfileForm({ value, onSave, onRegenerate, onReset }: Pr
       </section>
 
       <div className="flex flex-wrap gap-2">
-        <Button onClick={save}>저장</Button>
-        <Button variant="secondary" onClick={regenerate}>
-          식단 다시 만들기(모의)
-        </Button>
-        <Button variant="destructive" onClick={onReset}>
-          데이터 초기화
-        </Button>
+        <Button onClick={() => onSave(profile)}>저장</Button>
+        <Button variant="secondary" onClick={() => onRegenerate(profile)}>식단 다시 만들기(모의)</Button>
+        <Button variant="destructive" onClick={onReset}>데이터 초기화</Button>
       </div>
     </div>
   );

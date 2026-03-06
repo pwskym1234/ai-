@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 const tabs = [
   { href: "/home", label: "식단", icon: Home },
   { href: "/grocery", label: "장보기", icon: ShoppingCart },
-  { href: "/pantry", label: "팬트리", icon: Refrigerator },
+  { href: "/pantry", label: "내 재료", icon: Refrigerator },
   { href: "/profile", label: "설정", icon: UserRound },
 ];
 

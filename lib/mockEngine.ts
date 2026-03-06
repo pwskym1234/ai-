@@ -75,7 +75,7 @@ function makeReason(recipe: Recipe, profile: UserProfile, pantry: PantryItem[], 
   parts.push(`${profile.primaryGoal} 목표와 맞는 태그를 포함해 이번 주 저녁에 적합해요.`);
 
   if (pantryHits > 0) {
-    parts.push(`팬트리에 있는 재료 ${pantryHits}가지를 활용해 준비 부담을 낮췄어요.`);
+    parts.push(`내 재료에 있는 재료 ${pantryHits}가지를 활용해 준비 부담을 낮췄어요.`);
   }
 
   if (includeKidsHint && profile.kids) {

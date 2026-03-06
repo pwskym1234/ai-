@@ -1,6 +1,7 @@
 "use client";
 
 import { ChevronRight } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
 
@@ -26,17 +27,8 @@ export default function RowItem({
   className,
 }: RowItemProps) {
   const Comp = onClick ? "button" : "div";
-
-  return (
-    <Comp
-      type={onClick ? "button" : undefined}
-      onClick={onClick}
-      className={cn(
-        "flex w-full items-center gap-3 rounded-xl px-1 py-3 text-left",
-        onClick ? "hover:bg-slate-50 active:bg-slate-100" : "",
-        className,
-      )}
-    >
+  const inner = (
+    <>
       {leading && <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100">{leading}</div>}
       <div className="min-w-0 flex-1">
         <p className="truncate text-[15px] font-medium text-slate-900">{title}</p>
@@ -45,6 +37,21 @@ export default function RowItem({
       {value && <p className="text-[13px] font-medium text-slate-500">{value}</p>}
       {trailing}
       {!trailing && showChevron && onClick && <ChevronRight className="h-4 w-4 text-slate-400" />}
-    </Comp>
+    </>
   );
+
+  if (onClick) {
+    return (
+      <motion.button
+        whileTap={{ scale: 0.995 }}
+        type="button"
+        onClick={onClick}
+        className={cn("flex w-full items-center gap-3 rounded-xl px-1 py-3 text-left hover:bg-slate-50 active:bg-slate-100", className)}
+      >
+        {inner}
+      </motion.button>
+    );
+  }
+
+  return <Comp className={cn("flex w-full items-center gap-3 rounded-xl px-1 py-3 text-left", className)}>{inner}</Comp>;
 }

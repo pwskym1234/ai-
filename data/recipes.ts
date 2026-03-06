@@ -4,6 +4,7 @@ export const recipes: Recipe[] = [
   {
     id: "r1",
     title: "닭가슴살 브로콜리 현미볼",
+    imagePath: "/assets/recipes/recipe-1.svg",
     tags: ["혈당", "체중", "근육"],
     cookTimeMin: 25,
     difficulty: "easy",
@@ -19,6 +20,7 @@ export const recipes: Recipe[] = [
   {
     id: "r2",
     title: "두부 토마토 스튜",
+    imagePath: "/assets/recipes/recipe-2.svg",
     tags: ["염증", "장건강", "콜레스테롤"],
     cookTimeMin: 30,
     difficulty: "easy",
@@ -34,6 +36,7 @@ export const recipes: Recipe[] = [
   {
     id: "r3",
     title: "연어 시금치 팬구이",
+    imagePath: "/assets/recipes/recipe-3.svg",
     tags: ["혈압", "수면", "염증"],
     cookTimeMin: 20,
     difficulty: "medium",
@@ -49,6 +52,7 @@ export const recipes: Recipe[] = [
   {
     id: "r4",
     title: "계란 양배추 볶음밥",
+    imagePath: "/assets/recipes/recipe-4.svg",
     tags: ["혈당", "체중", "식물다양성"],
     cookTimeMin: 15,
     difficulty: "easy",
@@ -64,6 +68,7 @@ export const recipes: Recipe[] = [
   {
     id: "r5",
     title: "버섯 두부 덮밥",
+    imagePath: "/assets/recipes/recipe-5.svg",
     tags: ["장건강", "식물다양성", "혈압"],
     cookTimeMin: 35,
     difficulty: "medium",
@@ -79,6 +84,7 @@ export const recipes: Recipe[] = [
   {
     id: "r6",
     title: "닭가슴살 파프리카 구이",
+    imagePath: "/assets/recipes/recipe-6.svg",
     tags: ["근육", "체중", "혈당"],
     cookTimeMin: 30,
     difficulty: "easy",
@@ -94,6 +100,7 @@ export const recipes: Recipe[] = [
   {
     id: "r7",
     title: "연어 토마토 파스타풍 현미",
+    imagePath: "/assets/recipes/recipe-7.svg",
     tags: ["콜레스테롤", "염증", "수면"],
     cookTimeMin: 40,
     difficulty: "hard",
@@ -109,6 +116,7 @@ export const recipes: Recipe[] = [
   {
     id: "r8",
     title: "시금치 계란 오믈렛 플레이트",
+    imagePath: "/assets/recipes/recipe-8.svg",
     tags: ["근육", "수면", "체중"],
     cookTimeMin: 12,
     difficulty: "easy",
@@ -124,6 +132,7 @@ export const recipes: Recipe[] = [
   {
     id: "r9",
     title: "브로콜리 두부 카레풍 볶음",
+    imagePath: "/assets/recipes/recipe-9.svg",
     tags: ["염증", "혈당", "장건강"],
     cookTimeMin: 28,
     difficulty: "medium",
@@ -139,6 +148,7 @@ export const recipes: Recipe[] = [
   {
     id: "r10",
     title: "닭가슴살 감자 스튜",
+    imagePath: "/assets/recipes/recipe-10.svg",
     tags: ["근육", "혈압", "수면"],
     cookTimeMin: 45,
     difficulty: "medium",
@@ -154,6 +164,7 @@ export const recipes: Recipe[] = [
   {
     id: "r11",
     title: "귀리 요거트 과일볼",
+    imagePath: "/assets/recipes/recipe-11.svg",
     tags: ["장건강", "체중", "수면"],
     cookTimeMin: 10,
     difficulty: "easy",
@@ -169,6 +180,7 @@ export const recipes: Recipe[] = [
   {
     id: "r12",
     title: "연어 양배추 롤",
+    imagePath: "/assets/recipes/recipe-12.svg",
     tags: ["콜레스테롤", "혈압", "염증"],
     cookTimeMin: 35,
     difficulty: "hard",
@@ -184,6 +196,7 @@ export const recipes: Recipe[] = [
   {
     id: "r13",
     title: "버섯 시금치 리조토풍 현미",
+    imagePath: "/assets/recipes/recipe-1.svg",
     tags: ["장건강", "식물다양성", "수면"],
     cookTimeMin: 50,
     difficulty: "hard",
@@ -199,6 +212,7 @@ export const recipes: Recipe[] = [
   {
     id: "r14",
     title: "두부 파프리카 스크램블",
+    imagePath: "/assets/recipes/recipe-2.svg",
     tags: ["체중", "염증", "혈당"],
     cookTimeMin: 18,
     difficulty: "easy",
@@ -214,6 +228,7 @@ export const recipes: Recipe[] = [
   {
     id: "r15",
     title: "닭가슴살 토마토 수프",
+    imagePath: "/assets/recipes/recipe-3.svg",
     tags: ["혈압", "체중", "염증"],
     cookTimeMin: 22,
     difficulty: "easy",
@@ -229,6 +244,7 @@ export const recipes: Recipe[] = [
   {
     id: "r16",
     title: "감자 양파 오븐구이와 계란",
+    imagePath: "/assets/recipes/recipe-4.svg",
     tags: ["수면", "근육", "체중"],
     cookTimeMin: 38,
     difficulty: "medium",
@@ -244,6 +260,7 @@ export const recipes: Recipe[] = [
   {
     id: "r17",
     title: "연어 감자 팬샐러드",
+    imagePath: "/assets/recipes/recipe-5.svg",
     tags: ["콜레스테롤", "혈압", "식물다양성"],
     cookTimeMin: 26,
     difficulty: "medium",
@@ -259,6 +276,7 @@ export const recipes: Recipe[] = [
   {
     id: "r18",
     title: "계란 버섯 덮밥",
+    imagePath: "/assets/recipes/recipe-6.svg",
     tags: ["혈당", "장건강", "체중"],
     cookTimeMin: 16,
     difficulty: "easy",
@@ -274,6 +292,7 @@ export const recipes: Recipe[] = [
   {
     id: "r19",
     title: "두부 양배추 전골",
+    imagePath: "/assets/recipes/recipe-7.svg",
     tags: ["혈압", "염증", "장건강"],
     cookTimeMin: 55,
     difficulty: "hard",
@@ -289,6 +308,7 @@ export const recipes: Recipe[] = [
   {
     id: "r20",
     title: "귀리 우유 닭가슴살 리조또",
+    imagePath: "/assets/recipes/recipe-8.svg",
     tags: ["근육", "수면", "체중"],
     cookTimeMin: 42,
     difficulty: "medium",

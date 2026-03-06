@@ -1,7 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { CheckCircle2, ShoppingBag } from "lucide-react";
+import Image from "next/image";
+import { CheckCircle2 } from "lucide-react";
 import { toast } from "sonner";
 
 import BottomSheet from "@/components/BottomSheet";
@@ -26,15 +27,7 @@ const categoryLabel: Record<Ingredient["category"], string> = {
   other: "기타",
 };
 
-const categoryOrder: Ingredient["category"][] = [
-  "vegetable",
-  "fruit",
-  "protein",
-  "dairy",
-  "grain",
-  "seasoning",
-  "other",
-];
+const categoryOrder: Ingredient["category"][] = ["vegetable", "fruit", "protein", "dairy", "grain", "seasoning", "other"];
 
 export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
   const [selectedItem, setSelectedItem] = useState<CartItem | null>(null);
@@ -91,7 +84,7 @@ export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
                 <button
                   key={item.id}
                   type="button"
-                  className="flex w-full items-center gap-3 rounded-xl px-1 py-3 text-left hover:bg-slate-50"
+                  className="flex w-full items-center gap-3 rounded-[18px] px-1 py-3 text-left hover:bg-slate-50"
                   onClick={() => openAlternativeSheet(item)}
                 >
                   <Checkbox
@@ -104,6 +97,10 @@ export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
                       }))
                     }
                   />
+
+                  <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-slate-100">
+                    <Image src={item.product.imagePath} alt={item.product.title} fill className="object-cover" />
+                  </div>
 
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[15px] font-medium text-slate-900">{item.ingredientName} · {item.qtyText}</p>
@@ -119,16 +116,19 @@ export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
 
         {cart.length === 0 && (
           <SectionCard>
-            <div className="flex flex-col items-center gap-2 py-8 text-center text-slate-500">
-              <ShoppingBag className="h-8 w-8" />
-              <p className="text-[15px]">확정된 식단이 없어 장보기 목록이 비어 있어요.</p>
+            <div className="flex flex-col items-center gap-3 py-8 text-center text-slate-500">
+              <div className="relative h-28 w-28">
+                <Image src="/assets/empty/cart-empty.svg" alt="장보기 비어있음" fill className="object-contain" />
+              </div>
+              <p className="text-[15px] font-medium">확정된 식단이 없어 장보기 목록이 비어 있어요.</p>
+              <p className="text-[12px]">식단을 먼저 확정하면 필요한 재료가 여기에 정리돼요.</p>
             </div>
           </SectionCard>
         )}
       </div>
 
       <BottomSheet open={open} onOpenChange={setOpen} title="대체 상품 선택" description="원하는 상품을 선택하고 반영하세요.">
-        <div className="space-y-3 pb-24">
+        <div className="space-y-3">
           {selectedItem?.alternatives.map((alt: StoreProduct) => {
             const checked = (selectedProductId ?? selectedItem.product.id) === alt.id;
 
@@ -142,8 +142,8 @@ export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
                   checked ? "ring-2 ring-orange-400" : "",
                 )}
               >
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500">
-                  <ShoppingBag className="h-4 w-4" />
+                <div className="relative h-14 w-14 overflow-hidden rounded-2xl bg-slate-100">
+                  <Image src={alt.imagePath} alt={alt.title} fill className="object-cover" />
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[15px] font-medium text-slate-900">{alt.title}</p>
@@ -156,12 +156,11 @@ export default function GroceryList({ cart, onCartChange }: GroceryListProps) {
               </button>
             );
           })}
-
-          <div className="sticky bottom-0 bg-background pb-2 pt-2">
-            <PrimaryButton className="w-full" onClick={applyAlternative}>
-              선택한 상품 적용
-            </PrimaryButton>
-          </div>
+        </div>
+        <div className="pb-2 pt-4">
+          <PrimaryButton className="w-full" onClick={applyAlternative}>
+            선택한 상품 적용
+          </PrimaryButton>
         </div>
       </BottomSheet>
     </>

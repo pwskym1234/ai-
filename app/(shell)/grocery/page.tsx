@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { Store } from "lucide-react";
+import { Link2, Store } from "lucide-react";
 import { toast } from "sonner";
 
 import GroceryList from "@/components/GroceryList";
@@ -15,6 +15,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { commerceModeLabel } from "@/lib/commerce";
 import { calcCartTotal, remapCartItemProvider } from "@/lib/mockEngine";
 import { getCart, getProfile, seedIfEmpty, setCart, setProfile } from "@/lib/storage";
 import { CartItem, StoreProvider, UserProfile } from "@/lib/types";
@@ -36,7 +37,7 @@ export default function GroceryPage() {
   const onProviderChange = (nextProvider: StoreProvider) => {
     if (!profile) return;
 
-    const nextProfile = { ...profile, storeProvider: nextProvider };
+    const nextProfile: UserProfile = { ...profile, storeProvider: nextProvider };
     const nextCart = remapCartItemProvider(cart, nextProvider);
 
     setProfileState(nextProfile);
@@ -61,16 +62,16 @@ export default function GroceryPage() {
       <SectionCard title="장보기 요약">
         <div className="space-y-1">
           <div className="flex items-center gap-3 px-1 py-2">
-            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-slate-100 text-slate-500">
+            <div className="flex h-10 w-10 items-center justify-center rounded-full bg-slate-100 text-slate-500">
               <Store className="h-4 w-4" />
             </div>
             <div className="min-w-0 flex-1">
               <p className="text-[15px] font-medium text-slate-900">구매처</p>
-              <p className="text-[12px] text-slate-500">상품 가격/링크를 구매처 기준으로 재매핑</p>
+              <p className="text-[12px] text-slate-500">상품 가격과 링크를 스토어 기준으로 다시 맞춰요.</p>
             </div>
             <div className="w-32">
               <Select value={provider} onValueChange={(value: StoreProvider) => onProviderChange(value)}>
-                <SelectTrigger className="h-9 rounded-lg bg-slate-50 text-[13px]">
+                <SelectTrigger className="h-10 rounded-xl bg-slate-50 text-[13px]">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -80,13 +81,18 @@ export default function GroceryPage() {
               </Select>
             </div>
           </div>
-
           <RowItem title="예상 총액" value={formatKrw(total)} showChevron={false} />
+          <RowItem
+            title="연동 모드"
+            subtitle={commerceModeLabel(profile.commerceMode ?? "mock")}
+            leading={<Link2 className="h-4 w-4" />}
+            onClick={() => window.location.assign("/profile")}
+          />
         </div>
       </SectionCard>
 
       <GroceryList cart={cart} onCartChange={onCartChange} />
-      <StickyTotalBar cart={cart} provider={provider} />
+      <StickyTotalBar cart={cart} provider={provider} commerceMode={profile.commerceMode ?? "mock"} />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 export type StoreProvider = "oasis" | "coupang";
 export type Difficulty = "easy" | "medium" | "hard";
 export type MealType = "dinner";
+export type CommerceMode = "mock" | "deeplink" | "ready";
 
 export interface UserProfile {
   targetTypes: Array<"kids" | "senior">;
@@ -22,6 +23,7 @@ export interface UserProfile {
   shoppingWindowDays: 3 | 7 | 14;
   storeProvider: StoreProvider;
   budget?: number;
+  commerceMode?: CommerceMode;
 }
 
 export interface PantryItem {
@@ -48,6 +50,7 @@ export interface Ingredient {
 export interface Recipe {
   id: string;
   title: string;
+  imagePath: string;
   tags: string[];
   cookTimeMin: number;
   difficulty: Difficulty;
@@ -74,6 +77,7 @@ export interface StoreProduct {
   store: StoreProvider;
   ingredientName: string;
   title: string;
+  imagePath: string;
   unitText: string;
   price: number;
   url: string;

@@ -11,8 +11,8 @@ export const STORAGE_KEYS = {
 
 const defaultProfile: UserProfile = {
   targetTypes: ["kids"],
-  primaryGoal: "혈당",
-  goals: ["혈당", "체중", "장건강"],
+  primaryGoal: "성장",
+  goals: ["성장", "장건강", "편식"],
   constraints: {
     vegetarian: false,
     halal: false,
@@ -29,6 +29,7 @@ const defaultProfile: UserProfile = {
   shoppingWindowDays: 7,
   storeProvider: "oasis",
   budget: 80000,
+  commerceMode: "mock",
 };
 
 function hasWindow() {

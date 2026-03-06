@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
 import { Toaster } from "sonner";
 
-import AppShell from "@/components/AppShell";
-
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -18,7 +16,7 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body>
-        <AppShell>{children}</AppShell>
+        {children}
         <Toaster richColors position="top-center" />
       </body>
     </html>

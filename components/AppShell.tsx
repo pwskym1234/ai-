@@ -1,8 +1,9 @@
 "use client";
 
 import { ReactNode } from "react";
-import { usePathname } from "next/navigation";
+import { motion } from "framer-motion";
 
+import AICoachFab from "@/components/AICoachFab";
 import BottomNav from "@/components/BottomNav";
 import TopBar from "@/components/TopBar";
 
@@ -10,20 +11,19 @@ interface AppShellProps {
   children: ReactNode;
 }
 
-const hideShellPaths = ["/", "/onboarding"];
-
 export default function AppShell({ children }: AppShellProps) {
-  const pathname = usePathname();
-  const hideShell = hideShellPaths.some((path) => pathname === path || pathname.startsWith(`${path}/`));
-
-  if (hideShell) {
-    return <>{children}</>;
-  }
-
   return (
     <div className="mx-auto min-h-screen max-w-3xl bg-background">
       <TopBar />
-      <main className="px-4 pb-28 pt-2">{children}</main>
+      <motion.main
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.35, ease: "easeOut" }}
+        className="px-4 pb-28 pt-2"
+      >
+        {children}
+      </motion.main>
+      <AICoachFab />
       <BottomNav />
     </div>
   );

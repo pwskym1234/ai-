@@ -41,18 +41,14 @@ export default function PantryQuickAdd({ onAdd }: PantryQuickAddProps) {
       </div>
       <div className="mt-3 flex flex-wrap gap-2">
         {recommendItems.map((item) => (
-          <button
-            key={item}
-            className="rounded-full border px-3 py-1 text-sm hover:bg-accent"
-            onClick={() => setName(item)}
-          >
+          <button key={item} className="rounded-full border px-3 py-1 text-sm hover:bg-accent" onClick={() => setName(item)}>
             {item}
           </button>
         ))}
       </div>
       <div className="mt-3 flex items-center gap-2 text-sm text-muted-foreground">
         <Badge variant="secondary">추천</Badge>
-        팬트리 재료는 교체 후보 가중치에 반영됩니다.
+        내 재료는 교체 후보 가중치에 반영됩니다.
       </div>
     </div>
   );
